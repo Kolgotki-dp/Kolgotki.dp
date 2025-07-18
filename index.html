@@ -14,15 +14,11 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 20px;
-    font-style: arial, sans-serif;
-
-
-}
-p {
-    font-size: 20px;
     font-family: Arial, sans-serif;
-    
+
+
 }
+
 button {
     width: 250px;
     height: 70px;
@@ -65,7 +61,7 @@ button:hover {
 </style>
 <body>
     <header>
-        <a href="https://kolgotki.dp.ua"><img src="KDI.png" style="width: 70px;"></a>
+        <a href="https://kolgotki.dp.ua" class="logo_button"><img src="KDI.png" style="width: 70px;"></a>
     </header>
     <p class="ontopofredirect">Перейти до покупок в інтернет-магазині:</p>
     <button id="redirect-btn">Kolgotki.dp</button>
@@ -75,6 +71,8 @@ button:hover {
             document.getElementById('redirect-btn').style.display = 'none';
             document.getElementById('loading-animation').style.display = 'block';
             document.querySelector('.ontopofredirect').style.display = 'none';
+            document.querySelector('header').style.display = 'none'; // Hide header
+            
             setTimeout(function() {
                 window.location.href = 'https://kolgotki-dp.prom.ua/ua/';
             }, 1200); 
