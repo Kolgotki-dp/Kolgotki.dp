@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>Redirecting to Kolgotki-DP</title>
-    <meta http-equiv="refresh" content="0; URL='https://kolgotki-dp.prom.ua/ua/'">
     <meta name="google-site-verification" content="JdXcuFOYd1t8CBuFoJOC3CEGFZ7kBX9Cbfo0IF2b85g" />
 </head>
 <style>
@@ -10,11 +9,37 @@ body {
     position: absolute;
     top: 36%;
     left: 42%;
-    
 }
-
+button {
+    width: 250px;
+    height: 100px;
+    font-size: 20px;
+    background-color: #4353c7; 
+    color: #ededed;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #210fe1;
+    transform: scale(1.05);
+    transition: background-color 0.5s ease, transform 0.3s ease;
+}
+#loading-animation {
+    display: none;
+}
 </style>
 <body>
-    <img  src="Bars.svg" width="400" height="400" alt="BarsLoading">
+    <button id="redirect-btn">Kolgotki.dp</button>
+    <img id="loading-animation" src="Bars.svg" width="400" height="400" alt="BarsLoading">
+    <script>
+        document.getElementById('redirect-btn').onclick = function() {
+            document.getElementById('redirect-btn').style.display = 'none';
+            document.getElementById('loading-animation').style.display = 'block';
+            setTimeout(function() {
+                window.location.href = 'https://kolgotki-dp.prom.ua/ua/';
+            }, 1200); 
+        };
+    </script>
 </body>
 </html>
