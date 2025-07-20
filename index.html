@@ -13,7 +13,6 @@
     <link rel="icon" type="image/x-icon" href="media/KDI.png">
 
 </head>
-<!-- <link rel="stylesheet" href="styles.css">-->
 <style>
     body {
     min-height: 100vh;
@@ -94,6 +93,17 @@ button:hover {
     <p class="ontopofredirect">Перейти до покупок в інтернет-магазині:</p>
     <button id="redirect-btn">Почати покупки </button>
     <img id="loading-animation" src="media/Bars.svg" width="400" height="400" alt="BarsLoading" alt="Loading Animation">
-    <script src="redirecthide.js"></script>
+<script>
+    document.getElementById('redirect-btn').onclick = function() {
+        document.getElementById('redirect-btn').style.display = 'none';
+        document.getElementById('loading-animation').style.display = 'block';
+        document.querySelector('.ontopofredirect').style.display = 'none';
+        document.querySelector('.logo_button').style.display = 'none';
+        document.querySelector('.descriptiononpage').style.display = 'none';
+        setTimeout(function() {
+            window.location.href = 'https://kolgotki-dp.prom.ua/ua/';
+        }, 1200); 
+    };
+</script>
 </body>
 </html>
