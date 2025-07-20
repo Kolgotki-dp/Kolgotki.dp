@@ -21,15 +21,22 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 20px;
-    font-style: arial, sans-serif;
-
-
+    font-family: Arial, sans-serif; 
 }
 header {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1000;
+    text-align: center;
+    padding: 10px 0;
+
+}
+.logo_button img {
+    width: 140px;
+    height: auto;
 }
 
 button:hover {
@@ -49,4 +56,12 @@ button:hover {
     color: #040404;
     margin-bottom: 20px;
     
+}
+
+.descriptiononpage {
+    margin-top: 120px;
+    margin-bottom: 30px;
+    max-width: 900px;
+    text-align: center;
+    line-height: 1.6;
 }
