@@ -11,97 +11,280 @@
     <link rel="icon" type="image/x-icon" href="media/KDI.png">
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+    
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
     body {
-    min-height: 100vh;
-    min-width: 100vw;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 20px;
-    font-family: Arial, sans-serif;
+        min-height: 100vh;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        background: #f7ded7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+    }
 
-}
+    body::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+        animation: breathe 8s ease-in-out infinite;
+    }
 
-button {
-    width: 250px;
-    height: 70px;
-    background-color: #4353c7; 
-    color: #ededed;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    font-family: Arial, sans-serif; 
-    width: min(250px, 80%);
-    font-size: clamp(16px, 4vw, 20px);
-}
+    @keyframes breathe {
+        0%, 100% { transform: scale(1) rotate(0deg); }
+        50% { transform: scale(1.1) rotate(180deg); }
+    }
 
-.logo_button img {
-    width: 140px;
-    max-width: 140px;
-    height: auto;
-}
+    /* Main container */
+    .container {
+        max-width: 600px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+        animation: fadeIn 1s ease-out;
+    }
 
-button:hover {
-    background-color: #210fe1;
-    transform: scale(1.05);
-    transition: background-color 0.5s ease, transform 0.3s ease;
-}
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 
-#loading-animation {
-    display: none;
-}
+    /* Logo */
+    .logo {
+        margin-bottom: 48px;
+        display: inline-block;
+        position: relative;
+    }
 
-.ontopofredirect {
-    font-size: 22px;
-    color: #040404;
-    margin-bottom: 20px;
-}
+    .logo img {
+        width: 120px;
+        height: auto;
+        opacity: 0.9;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-.descriptiononpage {
-    margin-top: 20px;
-    margin-bottom: 30px;
-    max-width: 900px;
-    text-align: center;
-    line-height: 1.6;
-}
+    .logo:hover img {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
 
+    /* Typography */
+    .description {
+        color: #4a5568;
+        font-size: 16px;
+        line-height: 1.7;
+        margin-bottom: 40px;
+        font-weight: 300;
+        letter-spacing: 0.01em;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.3s forwards;
+    }
+
+    .cta-text {
+        color: #1a202c;
+        font-size: 18px;
+        font-weight: 400;
+        margin-bottom: 32px;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.5s forwards;
+    }
+
+    /* Button */
+    .btn {
+        display: inline-block;
+        padding: 16px 48px;
+        background: #1a202c;
+        color: white;
+        text-decoration: none;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        animation: fadeIn 1s ease-out 0.7s forwards;
+    }
+
+    .btn::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .btn:hover::before {
+        transform: translateX(0);
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    /* Loading state */
+    .loading {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #a64a44;
+        border-top-color: #1a202c;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+        color: #4a5568;
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    /* Hide elements when loading */
+    body.is-loading .content {
+        display: none;
+    }
+
+    body.is-loading .loading {
+        display: flex;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .description {
+            font-size: 15px;
+        }
+        
+        .cta-text {
+            font-size: 17px;
+        }
+        
+        .btn {
+            padding: 14px 40px;
+            font-size: 15px;
+        }
+    }
+
+    /* Subtle hover effect for entire page */
+    .subtle-glow {
+        position: fixed;
+        width: 400px;
+        height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(234, 12, 12, 0.102) 0%, transparent 30%);
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
 </style>
 <body>
-    <a href="https://kolgotki.dp.ua" class="logo_button">
-        <img src="media/KDI.png" alt="Logo">
-    </a>
-    <p class="descriptiononpage">
-        Доступно та швидко, з любов’ю з Дніпра. Весь асортимент на складі і готовий до відправки протягом 24 годин. 
-        Консультації та підтримка 24/7. Чекаємо на тебе! Наш інтернет-магазин “KDi” (Kolgotki.dp.ua) 
-        допомагає молодим дівчатам і жінкам щодня створювати яскраві, неповторні та сексуальні образи. 
-        Великий вибір жіночого одягу та аксесуарів, колготок та панчіх доступний для будь-якого бюджету. 
-        Постійно контролюємо якість товару та відповідність розмірних таблиць. Весь асортимент в наявності на нашому складі, 
-        швидка відправка з Дніпра по всій Україні менш ніж за 24 години з моменту оформлення замовлення. Працюємо без вихідних, 
-        персональні консультації та підтримка 24/7. Все для максимального комфорту та задоволення наших покупців! 
-        kolgotki.dp.ua — це місце, де стиль зустрічається з якістю і доступністю, а кожна клієнтка відчуває себе особливою 
-        завдяки турботі та увазі до деталей.
-    </p>
-    <p class="ontopofredirect">
-        Перейти до покупок в інтернет-магазині:
-    </p>
-    <button id="redirect-btn">
-        Почати покупки
-    </button>
-    <img id="loading-animation" src="media/Bars.svg" width="400" height="400" alt="BarsLoading" alt="Loading Animation">
+    <div class="subtle-glow" id="glow"></div>
+    
+    <div class="container">
+        <div class="content">
+            <a href="https://kolgotki.dp.ua" class="logo">
+                <img src="media/KDI.png" alt="KDi Logo">
+            </a>
+            
+            <p class="description">
+                Доступно та швидко, з любов'ю з Дніпра. Весь асортимент на складі і готовий до відправки протягом 24 годин. 
+                Консультації та підтримка 24/7. Чекаємо на тебе! Наш інтернет-магазин "KDi" (Kolgotki.dp.ua) 
+                допомагає молодим дівчатам і жінкам щодня створювати яскраві, неповторні та сексуальні образи. 
+                Великий вибір жіночого одягу та аксесуарів, колготок та панчіх доступний для будь-якого бюджету.
+            </p>
+            
+            <p class="cta-text">
+                Перейти до покупок в інтернет-магазині
+            </p>
+            
+            <button class="btn" id="redirect-btn">
+                Почати покупки
+            </button>
+        </div>
+        
+        <div class="loading">
+            <div class="spinner"></div>
+            <p class="loading-text">Переходимо до магазину...</p>
+        </div>
+    </div>
+
 <script>
-    document.getElementById('redirect-btn').onclick = function() {
-        document.getElementById('redirect-btn').style.display = 'none';
-        document.getElementById('loading-animation').style.display = 'block';
-        document.querySelector('.ontopofredirect').style.display = 'none';
-        document.querySelector('.logo_button').style.display = 'none';
-        document.querySelector('.descriptiononpage').style.display = 'none';
-        setTimeout(function() {
+    // Mouse follow effect
+    const glow = document.getElementById('glow');
+    let mouseX = 0, mouseY = 0;
+    let currentX = 0, currentY = 0;
+
+    document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        glow.style.opacity = '1';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        glow.style.opacity = '0';
+    });
+
+    // Smooth animation loop
+    function animate() {
+        currentX += (mouseX - currentX) * 0.1;
+        currentY += (mouseY - currentY) * 0.1;
+        
+        glow.style.left = currentX - 200 + 'px';
+        glow.style.top = currentY - 200 + 'px';
+        
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Redirect functionality
+    document.getElementById('redirect-btn').addEventListener('click', function() {
+        document.body.classList.add('is-loading');
+        
+        setTimeout(() => {
             window.location.href = 'https://kolgotki-dp.prom.ua/ua/';
-        }, 1200); 
-    };
+        }, 1500);
+    });
+
 </script>
 </body>
 </html>
