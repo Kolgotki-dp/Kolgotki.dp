@@ -36,6 +36,7 @@ header {
 }
 .logo_button img {
     width: 140px;
+    max-width: 140px;
     height: auto;
 }
 
